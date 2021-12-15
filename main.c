@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#define WORD 8
-#define TXT 8
+#define WORD 30
+#define TXT 1024
 int value_of_char_geo(char c)
 {
     char letters_alphapet[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -35,7 +35,7 @@ printf("\n");
 
 }
 
-int text_length_geo(char *str_new)
+int text_length_geo(char *str_new,int word_length)
 {
     int sum_for_word = 0;
     char ch;
@@ -43,13 +43,14 @@ int text_length_geo(char *str_new)
     int j = 0;
     for (int i = j; str_new[i] != '\0'; i++)
     {
-        for( j = 0; sum_for_word<=8; j++)
+        for( j = i; sum_for_word<word_length; j++)
         {
           sum_for_word+=value_of_char_geo(str_new[j]);
 
         }
         print_text_from_i_to_j(str_new,i,j);
-        i=j;
+        i=j-1;
+        sum_for_word=0;
     }
     
 }
@@ -112,22 +113,51 @@ char *new_words(int newsize)
 
 int main(void)
 {
-    printf("Insert str: MAX 8 CHARS!\n\n");
-    char string1[TXT];
-    scanf("%8s", string1);
-    // for (int i = 0; i < 8; ++i) {
-    //      printf("%c, ",string1[i]);
-    //  }
+   
 
-    printf("Insert word_input: MAX 8 CHARS!\n\n");
-    char string2[WORD];
-    scanf("%8s", string2);
+ //   printf("Insert word_input: MAX 8 CHARS!\n\n");
+    
+    
+
+/*********** thhe word input ***********************************************/
+    
+    char string2[30];
+    printf("\n\n enter text\n");
+        scanf("%30s", string2);
+    // str will be modified by strtok
+    const char deli1[] = " ";
+    const char deli2[] = "\n";
+    const char deli3[] = "\t";   // deli could also be declared as [2] or as const char *. Take your pick...
+    char *token;
+
+    token = strtok(string2, deli1);
+    token = strtok(string2, deli2);
+    token = strtok(string2, deli3);
+    int i=0;
+   // while(token[i]!='\0') {
+     //     printf("%c, ",token[i]);
+     //     i++;
+     // }
+      
+/****************** end word input ************************************************/
+while ((getchar()) != '\n');
+ printf("Insert str: MAX 8 CHARS!\n\n");
+    char string1[1024];
+  //  char string1[TXT];
+    scanf("%[^~]s", string1);
+     i=0;
+     //while(string1[i]!='\0') {
+     //     printf("%c, ",string1[i]);
+     //     i++;
+      //}
+
+
+
+
 
     //  for (int i = 0; i < 8; ++i) {
     //      printf("%c, ",string2[i]);
     //  }
-    // text_length_geo(string1);
-    int x = word_length_geo(string2);
-    printf("\n%d\n", x);
-    text_length_geo(string1);
+    int x = word_length_geo(token);
+    text_length_geo(string1,x);
 }
