@@ -44,7 +44,7 @@ int main(void)
     str[TXT] = '\0'; /* terminate the string */
 
    // printf("%s\n", str);
-
+//hi there i am loai
     char word_input[WORD + 1]; 
     int n;
     char m;
