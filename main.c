@@ -164,4 +164,5 @@ while ((getchar()) != '\n');
     //  }
     int x = word_length_geo(token);
     text_length_geo(string1,x);
+    printf("\n");
 }
