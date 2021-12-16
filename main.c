@@ -113,8 +113,30 @@ char *new_words(int newsize)
 
     return str;
 }
+int check_if_char_alphapet(char c)
+{
+    char letters6[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    for (int i = 0; i < 52; i++)
+
+    {
+        if (letters6 == c)
+        {
+            return 1;
+        }
+    }
+    return;
+}
 void hatbash(char *str_new2, char *word)
 {
+    for (int i = 0; str_new2[i] != '\0'; i++)
+    {
+        while (!(check_if_char_alphapet(str_new2[i])))
+            i++;
+        for (int j = 0; j < strlen(word); j++)
+        {
+            
+        }
+    }
 }
 
 int main(void)
@@ -175,7 +197,8 @@ int main(void)
         {
             if (word_for_atbash[i] == letters4[j])
             {
-                if (j < 26){
+                if (j < 26)
+                {
                     word_for_atbash[i] = letters4[26 - i - 1];
                 }
                 else
@@ -183,8 +206,8 @@ int main(void)
                     word_for_atbash[i] = letters4[52 - i - 1];
                 }
             }
-            if (word_for_atbash[i] == letters4[j])
-            break;
+            // if (word_for_atbash[i] == letters4[j])
+            // break;
         }
     }
     for (int i = 0; i < length_of_string2; ++i)
@@ -192,5 +215,5 @@ int main(void)
         printf("%c, ", word_for_atbash[i]);
     }
 
-    // hatbash(token,string1);
+    hatbash(string1, word_for_atbash);
 }
