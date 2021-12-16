@@ -31,7 +31,7 @@ for (int from = i; from < j; from++)
 {
     printf("%c",print_text[from]);
 }
-printf("\n");
+printf("~");
 
 }
 
@@ -41,15 +41,19 @@ int text_length_geo(char *str_new,int word_length)
     char ch;
     char letters[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     int j = 0;
-    for (int i = j; str_new[i] != '\0'; i++)
+    for (int i = 0; str_new[i] != '\0'; i++)
     {
+        while((str_new[i]==' ')||(str_new[i]==','))
+        i++;
         for( j = i; sum_for_word<word_length; j++)
         {
           sum_for_word+=value_of_char_geo(str_new[j]);
 
         }
+        if(sum_for_word==word_length){
         print_text_from_i_to_j(str_new,i,j);
-        i=j-1;
+        }
+        //i=j-1;
         sum_for_word=0;
     }
     
@@ -122,7 +126,7 @@ int main(void)
 /*********** thhe word input ***********************************************/
     
     char string2[30];
-    printf("\n\n enter text\n");
+    printf("enter text\n");
         scanf("%30s", string2);
     // str will be modified by strtok
     const char deli1[] = " ";
@@ -153,7 +157,7 @@ while ((getchar()) != '\n');
 
 
 
-
+        printf("\n");
 
     //  for (int i = 0; i < 8; ++i) {
     //      printf("%c, ",string2[i]);
