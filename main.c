@@ -119,24 +119,53 @@ int check_if_char_alphapet(char c)
     for (int i = 0; i < 52; i++)
 
     {
-        if (letters6 == c)
+        if (letters6[i] == c)
         {
             return 1;
         }
     }
-    return;
+    return 0;
 }
 void hatbash(char *str_new2, char *word)
 {
-    for (int i = 0; str_new2[i] != '\0'; i++)
+    int c = 0, p1, p2;
+    for (int i = 0, j = 0; str_new2[j] == '~'; i++, j++)
     {
-        while (!(check_if_char_alphapet(str_new2[i])))
-            i++;
-        for (int j = 0; j < strlen(word); j++)
+        if (check_if_char_alphapet(str_new2[j]))
         {
-            
+            if (word[i] != str_new2[j])
+            {
+                i = -1;
+            }
+            else
+            {
+                c++;
+                if ((str_new2[j + 1] != '\0')&&(word[i + 1] != '\0'))
+
+                {
+                    if (str_new2[j + 1] != word[i + 1])
+                    {
+                        c = 0;
+                    }
+                }
+            }
+            if (c == 1)
+            {
+                p1 = j;
+            }
+            if (c == strlen(word))
+            {
+                p2 = j;
+                print_text_from_i_to_j(str_new2, p1, p2);
+                c=0;
+            }
+        }
+        else
+        {
+            i--;
         }
     }
+    printf("\n\n done");
 }
 
 int main(void)
@@ -210,9 +239,9 @@ int main(void)
             // break;
         }
     }
-    for (int i = 0; i < length_of_string2; ++i)
+  //  for (int i = 0; i < length_of_string2; ++i)
     {
-        printf("%c, ", word_for_atbash[i]);
+   //     printf("%c, ", word_for_atbash[i]);
     }
 
     hatbash(string1, word_for_atbash);
