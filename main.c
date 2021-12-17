@@ -26,7 +26,8 @@ int value_of_char_geo(char c)
     }
     return 0;
 }
-void print_text_from_i_to_j(char *print_text, int i, int j)
+//void print_text_from_i_to_j(char *print_text, int i, int j)
+void print_text_from_i_to_j(char print_text[], int i, int j)
 {
     for (int from = i; from < j; from++)
     {
@@ -126,12 +127,15 @@ int check_if_char_alphapet(char c)
     }
     return 0;
 }
-void hatbash(char *str_new2, char *word)
+//void hatbash(char *str_new2, char *word)
+void hatbash(char str_new2[], char word[])
 {
+
     int c = 0, p1, p2;
-    for (int i = 0, j = 0; str_new2[j] == '~'; i++, j++)
+    for (int i = 0, j = 0;j< strlen(str_new2); i++, j++)
     {
-        if (check_if_char_alphapet(str_new2[j]))
+        if(str_new2[j] != '~'){
+            if (check_if_char_alphapet(str_new2[j]))
         {
             if (word[i] != str_new2[j])
             {
@@ -163,9 +167,10 @@ void hatbash(char *str_new2, char *word)
         else
         {
             i--;
-        }
+        }}
     }
-    printf("\n\n done");
+
+ //   printf("\n\n done");
 }
 
 int main(void)
