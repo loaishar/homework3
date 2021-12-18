@@ -33,7 +33,7 @@ void print_text_from_i_to_j(char print_text[], int i, int j)
     {
         printf("%c", print_text[from]);
     }
-    printf("~");
+   printf("~");
 }
 
 int text_length_geo(char *str_new, int word_length)
@@ -160,7 +160,7 @@ void hatbash(char str_new2[], char word[])
             if (c == strlen(word))
             {
                 p2 = j;
-                print_text_from_i_to_j(str_new2, p1, p2);
+                print_text_from_i_to_j(str_new2, p1, p2+1);
                 c=0;
             }
         }
@@ -168,6 +168,8 @@ void hatbash(char str_new2[], char word[])
         {
             i--;
         }}
+        else
+        break;
     }
 
  //   printf("\n\n done");
@@ -218,8 +220,8 @@ int main(void)
     //  }
     /*******end print function for test ********/
 
-    // int x = word_length_geo(token);
-    // text_length_geo(string1,x);
+     int x = word_length_geo(token);
+     text_length_geo(string1,x);
     printf("\n");
     char letters4[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     int length_of_string2 = strlen(token);
@@ -249,5 +251,5 @@ int main(void)
    //     printf("%c, ", word_for_atbash[i]);
     }
 
-    hatbash(string1, word_for_atbash);
+  hatbash(string1, word_for_atbash);
 }
