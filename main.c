@@ -3,6 +3,7 @@
 #include <string.h>
 #define WORD 30
 #define TXT 1024
+int check_if_char_alphapet(char c);
 int value_of_char_geo(char c)
 {
     char letters_alphapet[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -36,7 +37,7 @@ void print_text_from_i_to_j(char print_text[], int i, int j)
    printf("~");
 }
 
-int text_length_geo(char *str_new, int word_length)
+void text_length_geo(char *str_new, int word_length)
 {
     int sum_for_word = 0;
     char ch;
@@ -44,7 +45,8 @@ int text_length_geo(char *str_new, int word_length)
     int j = 0;
     for (int i = 0; str_new[i] != '\0'; i++)
     {
-        while ((str_new[i] == ' ') || (str_new[i] == ','))
+       
+        while (!(check_if_char_alphapet(str_new[i])))
             i++;
         for (j = i; sum_for_word < word_length; j++)
         {
@@ -251,5 +253,5 @@ int main(void)
    //     printf("%c, ", word_for_atbash[i]);
     }
 
-  hatbash(string1, word_for_atbash);
+ // hatbash(string1, word_for_atbash);
 }
