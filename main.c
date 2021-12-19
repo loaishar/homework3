@@ -27,14 +27,14 @@ int value_of_char_geo(char c)
     }
     return 0;
 }
-//void print_text_from_i_to_j(char *print_text, int i, int j)
+// void print_text_from_i_to_j(char *print_text, int i, int j)
 void print_text_from_i_to_j(char print_text[], int i, int j)
 {
     for (int from = i; from < j; from++)
     {
         printf("%c", print_text[from]);
     }
-   printf("~");
+    printf("~");
 }
 
 void text_length_geo(char *str_new, int word_length)
@@ -45,10 +45,14 @@ void text_length_geo(char *str_new, int word_length)
     int j = 0;
     for (int i = 0; str_new[i] != '\0'; i++)
     {
-       
-        while (!(check_if_char_alphapet(str_new[i])))
+        //   if ((i > strlen(str_new)))
+        //       exit;
+        while ((!(check_if_char_alphapet(str_new[i]))) && (i < strlen(str_new)))
             i++;
-        for (j = i; sum_for_word < word_length; j++)
+        if ((i > strlen(str_new)))
+            exit;
+
+        for (j = i; (sum_for_word < word_length) && (str_new[j] != '\0'); j++)
         {
             sum_for_word += value_of_char_geo(str_new[j]);
         }
@@ -129,52 +133,83 @@ int check_if_char_alphapet(char c)
     }
     return 0;
 }
-//void hatbash(char *str_new2, char *word)
+// void hatbash(char *str_new2, char *word)
 void hatbash(char str_new2[], char word[])
 {
-
     int c = 0, p1, p2;
-    for (int i = 0, j = 0;j< strlen(str_new2); i++, j++)
+    for (int i = 0, j = 0; j < strlen(str_new2); i++, j++)
     {
-        if(str_new2[j] != '~'){
-            if (check_if_char_alphapet(str_new2[j]))
+        if (str_new2[j] != '~')
         {
-            if (word[i] != str_new2[j])
+            if (check_if_char_alphapet(str_new2[j]))
             {
-                i = -1;
+                if (word[i] != str_new2[j])
+                {
+                    i = -1;
+                }
+                else
+                {
+                    c++;
+                    if ((str_new2[j + 1] != '\0') && (word[i + 1] != '\0'))
+
+                    {
+                        if (check_if_char_alphapet(str_new2[j + 1]))
+                        {
+                            if (str_new2[j + 1] != word[i + 1])
+                            {
+                                c = 0;
+                            }
+                        }
+                    }
+                }
+                if (c == 1)
+                {
+                    p1 = j;
+                }
+                if (c == strlen(word))
+                {
+                    p2 = j;
+                    print_text_from_i_to_j(str_new2, p1, p2 + 1);
+                    c = 0;
+                }
             }
             else
             {
-                c++;
-                if ((str_new2[j + 1] != '\0')&&(word[i + 1] != '\0'))
-
-                {
-                    if (str_new2[j + 1] != word[i + 1])
-                    {
-                        c = 0;
-                    }
-                }
-            }
-            if (c == 1)
-            {
-                p1 = j;
-            }
-            if (c == strlen(word))
-            {
-                p2 = j;
-                print_text_from_i_to_j(str_new2, p1, p2+1);
-                c=0;
+                i--;
             }
         }
         else
-        {
-            i--;
-        }}
-        else
-        break;
+            break;
     }
 
- //   printf("\n\n done");
+    //   printf("\n\n done");
+}
+char *word_for_atbash_generate(char *token_convert)
+{
+    char letters4[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    int length_of_string2 = strlen(token_convert);
+    char word_for_atbash[length_of_string2];
+    strcpy(word_for_atbash, token_convert);
+    for (int i = 0; i < length_of_string2; i++)
+    {
+        for (int j = 0; j < 52; j++)
+        {
+            if (word_for_atbash[i] == letters4[j])
+            {
+                if (j < 26)
+                {
+                    word_for_atbash[i] = letters4[26 - i - 1];
+                }
+                else
+                {
+                    word_for_atbash[i] = letters4[52 - i - 1];
+                }
+            }
+            // if (word_for_atbash[i] == letters4[j])
+            // break;
+        }
+    }
+    return word_for_atbash;
 }
 
 int main(void)
@@ -222,36 +257,37 @@ int main(void)
     //  }
     /*******end print function for test ********/
 
-     int x = word_length_geo(token);
-     text_length_geo(string1,x);
-    printf("\n");
-    char letters4[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-    int length_of_string2 = strlen(token);
-    char word_for_atbash[length_of_string2];
-    strcpy(word_for_atbash, token);
-    for (int i = 0; i < length_of_string2; i++)
-    {
-        for (int j = 0; j < 52; j++)
-        {
-            if (word_for_atbash[i] == letters4[j])
-            {
-                if (j < 26)
-                {
-                    word_for_atbash[i] = letters4[26 - i - 1];
-                }
-                else
-                {
-                    word_for_atbash[i] = letters4[52 - i - 1];
-                }
-            }
-            // if (word_for_atbash[i] == letters4[j])
-            // break;
-        }
-    }
-  //  for (int i = 0; i < length_of_string2; ++i)
-    {
-   //     printf("%c, ", word_for_atbash[i]);
-    }
+    int x = word_length_geo(token);
+    // text_length_geo(string1, x);
 
- // hatbash(string1, word_for_atbash);
+    printf("\n");
+    
+
+
+    //  for (int i = 0; i < length_of_string2; ++i)
+    {
+        //     printf("%c, ", word_for_atbash[i]);
+    }
+    /******reverse word*******/
+    char rev[strlen(token)];
+    int count=0,j;
+    while (token[count] != '\0')
+    {
+        count++;
+    }
+    j = count - 1;
+
+    // reversing the string by swapping
+    for (i = 0; i < count; i++)
+    {
+        rev[i] = token[j];
+        j--;
+    }
+    /*****end reverse word*****/
+    char word2[strlen(token)];
+    strcpy(word2,word_for_atbash_generate(token));
+    printf("%s",word2);
+   // word_for_atbash_generate(rev);
+   hatbash(string1, word2);
+   // hatbash(string1, word2);
 }
