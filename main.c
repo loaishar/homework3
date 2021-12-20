@@ -188,9 +188,10 @@ char *word_for_atbash_generate(char *token_convert)
 {
     char letters4[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
     int length_of_string2 = strlen(token_convert);
-    char word_for_atbash[length_of_string2];
+    char *word_for_atbash = malloc(sizeof length_of_string2);
     strcpy(word_for_atbash, token_convert);
-    for (int i = 0; i < length_of_string2; i++)
+    int i = 0; 
+    while (i < length_of_string2)
     {
         for (int j = 0; j < 52; j++)
         {
@@ -198,19 +199,53 @@ char *word_for_atbash_generate(char *token_convert)
             {
                 if (j < 26)
                 {
-                    word_for_atbash[i] = letters4[26 - i - 1];
+                    word_for_atbash[i] = letters4[26 - j - 1];
+                    i++;
+                    j=0;
                 }
                 else
                 {
-                    word_for_atbash[i] = letters4[52 - i - 1];
+                    word_for_atbash[i] = letters4[52 - j - 1];
+                    i++;
+                    j=0;
                 }
             }
-            // if (word_for_atbash[i] == letters4[j])
-            // break;
         }
     }
     return word_for_atbash;
 }
+
+
+int check_if_char_alphapet_and_space(char c)
+{
+    char letters_and_space[53] = {' ','a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
+    for (int i = 0; i < 53; i++)
+
+    {
+        if (letters_and_space[i] == c)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+
+
+void func3(char str_new4[], char wor7[])
+{
+    if(str_new4)
+}
+
+
+
+
+
+
+
+
+
+
 
 int main(void)
 {
@@ -257,37 +292,6 @@ int main(void)
     //  }
     /*******end print function for test ********/
 
-    int x = word_length_geo(token);
-    // text_length_geo(string1, x);
 
-    printf("\n");
-    
-
-
-    //  for (int i = 0; i < length_of_string2; ++i)
-    {
-        //     printf("%c, ", word_for_atbash[i]);
-    }
-    /******reverse word*******/
-    char rev[strlen(token)];
-    int count=0,j;
-    while (token[count] != '\0')
-    {
-        count++;
-    }
-    j = count - 1;
-
-    // reversing the string by swapping
-    for (i = 0; i < count; i++)
-    {
-        rev[i] = token[j];
-        j--;
-    }
-    /*****end reverse word*****/
-    char word2[strlen(token)];
-    strcpy(word2,word_for_atbash_generate(token));
-    printf("%s",word2);
-   // word_for_atbash_generate(rev);
-   hatbash(string1, word2);
-   // hatbash(string1, word2);
+   func3(string1, token);
 }
