@@ -5,9 +5,9 @@ FLAGS= -Wall -g
 
 all:.stringProg
 .stringProg: $(OBJECTS_MAIN)
-	$(CC) $(FLAGS) -o .stringProg $(OBJECTS_MAIN) ./libmy_mat.so -lm	
+	$(CC) $(FLAGS) -o .stringProg $(OBJECTS_MAIN)
 
 .PHONY: clean all
 
 clean:
-	rm -f *.o *.a *.so .connections
+	rm -f *.o *.a *.so ..stringProg
