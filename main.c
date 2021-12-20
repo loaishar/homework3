@@ -181,8 +181,6 @@ void hatbash(char str_new2[], char word[])
         else
             break;
     }
-
-    //   printf("\n\n done");
 }
 char *word_for_atbash_generate(char *token_convert)
 {
@@ -236,8 +234,112 @@ void func3(char str_new4[], char wor7[])
 }
 
 /********** function to be reviewed****/
+int is_included(int begin, int end, char *word6, char *str6)
+{
+    int c = 0;
+    for (int i = 0; i < strlen(word6); i++)
+    {
+        for (int j = begin; j < end; j++)
+        {
+            if (word6[i] == str6[j])
+            {
+                c++;
+            }
+        }
+    }
+    for (int j = begin; j < end; j++)
+    {
+        for (int i = 0; i < strlen(word6); i++)
+        {
+            if (word6[i] == str6[j])
+            {
+                c++;
+            }
+        }
+    }
+    if (c / 2 == strlen(word6))
+    {
+        return 1;
+    }
 
-/********** end of function to be reviewed****/
+    return 0;
+}
+int get_spaces(int from, int to, char *str)
+{
+    int c = 0;
+    for (int i = from; i < to; i++)
+    {
+        if (str[i] == ' ')
+        {
+            c++;
+        }
+    }
+    return c;
+}
+
+void findAnagrams(char *str, char *word)
+{
+    int foll_spaces = 0;
+    int number = strlen(str);
+    int str_0[number];
+    memset(str_0, 0, number * sizeof(str_0[0]));
+    for (int i = 0; i < strlen(str); i++)
+    {
+        for (int j = 0; j < strlen(word); j++)
+        {
+            if (word[j] == str[i])
+            {
+                if(str_0[i]==0){
+                str_0[i]++;
+                // i = 0;
+                }
+            }
+            if (foll_spaces == 0)
+            {
+                if (str[i] == ' ')
+                {
+                    str_0[i]++;
+                    foll_spaces = 1;
+                }
+            }
+        }
+        foll_spaces = 0;
+    }
+
+    int p1;
+    int fool = 0;
+    int number_of_spaces=0;
+    for (int i = 0; i < strlen(str); i += strlen(word))
+    {
+        for (int j = 0; j < strlen(word); j++)
+        {
+            if ((str_0[i + j] == 1))
+            {
+                fool = 1;
+                p1 = i + j;
+            }
+            if (fool)
+            {
+                int v2 = p1 + strlen(word);
+                int number_of_spaces = get_spaces(p1, v2, str);
+                i+=number_of_spaces;
+                int v = strlen(word) + number_of_spaces + p1;
+                if (is_included(p1, v, word, str))
+                {
+                    for (int x1 = p1; x1 < v; x1++)
+                    {
+                        printf("%c", str[x1]);
+                    }
+                    printf("~");
+                }
+            }
+
+            fool = 0;
+        }
+      int r=(strlen(word))+number_of_spaces;
+    }
+}
+/*****o be reviewed****/
 
 int main(void)
 {
@@ -247,7 +349,6 @@ int main(void)
     /*********** thhe word input ***********************************************/
 
     char string2[30];
-    printf("enter text\n");
     scanf("%30s", string2);
     // str will be modified by strtok
     const char deli1[] = " ";
@@ -267,7 +368,7 @@ int main(void)
     /****************** end word input ************************************************/
     while ((getchar()) != '\n')
         ;
-    printf("Insert str: MAX 8 CHARS!\n\n");
+   
     char string1[1024];
     //  char string1[TXT];
     scanf("%[^~]s", string1);
@@ -285,8 +386,8 @@ int main(void)
     /*******end print function for test ********/
 
     int x = word_length_geo(token);
+    printf("Gematria Sequences: ");
     text_length_geo(string1, x);
-
     printf("\n");
 
     //  for (int i = 0; i < length_of_string2; ++i)
@@ -317,14 +418,14 @@ int main(void)
     memmove(word2, word_for_atbash_generate(rev), sizeof token);
     // printf("%s",word2);
     // word_for_atbash_generate(rev);
+    printf("Atbash Sequences: ");
     hatbash(string1, word1);
     free(word1);
     hatbash(string1, word2);
     free(word2);
-    printf("\n");
-    
-   
-   int* ptr = findAnagrams(string1, token);
-   printf("\n\n");
-   
+    int xen = strlen(token);
+
+    // int *ptr =
+    printf("\nAnagram Sequences: ");
+    findAnagrams(string1, token);
 }
