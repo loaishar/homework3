@@ -237,44 +237,6 @@ void func3(char str_new4[], char wor7[])
 
 /********** function to be reviewed****/
 
-int isSame(int *a, int *b) // compare whether two int arrays are the same
-{
-    int i;
-    for (i = 0; i < 26; i++)
-        if (a[i] != b[i])
-            return 0;
-    return 1;
-}
-
-int *findAnagrams(char *s, char *p, int *returnSize)
-{
-    int s_len = strlen(s), p_len = strlen(p), i, j;
-    if (p_len > s_len)
-        exit;
-    int p_alphabet[26] = {0}, s_alphabet[26] = {0};
-    int *ans = (int *)malloc(sizeof(int) * s_len);
-    (*returnSize) = 0;
-    for (i = 0; i < p_len; i++)
-    {
-        p_alphabet[p[i] - 'a']++;
-        s_alphabet[s[i] - 'a']++;
-    }
-
-    for (i = 0; i <= s_len - p_len; i++)
-    {
-        if (i != 0)
-            s_alphabet[s[i + p_len - 1] - 'a']++;
-
-        if (isSame(p_alphabet, s_alphabet))
-        {
-            ans[*returnSize] = i;
-            (*returnSize)++;
-        }
-        s_alphabet[s[i] - 'a']--;
-    }
-    return ans;
-}
-
 /********** end of function to be reviewed****/
 
 int main(void)
@@ -360,18 +322,9 @@ int main(void)
     hatbash(string1, word2);
     free(word2);
     printf("\n");
-    int result[4];
-
-    memcpy(result, findAnagrams(string1, token, 0), sizeof(result));
-
-    for (int i = 0; i < 8; ++i)
-    {
-        printf("%d, ", result[i]);
-    }
-
-    // func3(string1, token);
-
-
-
     
+   
+   int* ptr = findAnagrams(string1, token);
+   printf("\n\n");
+   
 }
