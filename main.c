@@ -341,6 +341,8 @@ void findAnagrams(char *str, char *word)
 }
 /*****o be reviewed****/
 
+
+
 int main(void)
 {
 
