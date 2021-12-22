@@ -277,71 +277,145 @@ int get_spaces(int from, int to, char *str)
     return c;
 }
 
+char *remove_white_spaces(char str[])
+{
+    int i = 0, j = 0;
+    while (str[i])
+    {
+        if (str[i] != ' ')
+            str[j++] = str[i];
+        i++;
+    }
+    str[j] = '\0';
+    return str;
+}
+int not_contain_zero(int from, int to, int *arraysum2)
+{
+    // int n = sizeof(arraysum2) / sizeof(int);
+    for (int i = from; i < to; i++)
+    {
+        if (arraysum2[i] == 0)
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+int exist_in_the_rext(char c, char *str, int begin, int end)
+{
+    for (int i = begin; i <= end; i++)
+    {
+        if (str[i] == c)
+        {
+            return 1;
+        }
+    }
+    return 0;
+}
+int IsFroBeToEn_included_in_word(int begin, int end, char *str, char *word)
+{
+    int wordlength = strlen(word);
+    for (int i = 0; i < wordlength; i++)
+    {
+        if (!(exist_in_the_rext(word[i], str, begin, end)))
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+void printanagram(int *str1_0, int *str2_spaces, int length, char *str, char *word)
+{
+    int spaces = 0;
+    int c = 0, begin, end;
+    int strLength = strlen(str);
+    int *arrayssum = (int *)malloc(strLength * sizeof(int));
+    for (int i = 0; i < strLength; i++)
+        arrayssum[i] = str1_0[i] + str2_spaces[i];
+    int cunter = 0;
+    for (int x = 0; x < strLength; x++)
+    {
+        if ((arrayssum[x] == 0))
+        {
+
+            c = 0;
+        }
+        if ((arrayssum[x] == 2))
+        {
+
+            spaces++;
+        }
+        if ((arrayssum[x] == 1) && (c == 0))
+        {
+            begin = x;
+            c++;
+        }
+        else
+        {
+            if ((arrayssum[x] == 1))
+            {
+                c++;
+                if (c == length)
+                {
+                    end = x;
+                    int shall = begin;
+                    if (not_contain_zero(begin, end, arrayssum))
+                    {
+                        if (IsFroBeToEn_included_in_word(begin, end, str, word))
+                        {
+                            // printf("%d\n",begin);
+                            while (begin < (end) + 1)
+                            {
+
+                                printf("%c", str[begin]);
+                                begin++;
+                            }
+                            printf("~");
+                        }
+                        else
+                        {
+                            x = x - spaces - 1;
+                        }
+                    }
+                    c = 0;
+                    spaces = 0;
+                }
+            }
+        }
+    }
+}
+
 void findAnagrams(char *str, char *word)
 {
-    int foll_spaces = 0;
     int number = strlen(str);
-    int str_0[number];
-    memset(str_0, 0, number * sizeof(str_0[0]));
+    char *stringa_for_rem_space = (char *)malloc(number * sizeof(char));
+    strcpy(stringa_for_rem_space, str);
+    char *stringa_without_spaces = (char *)malloc(number * sizeof(char));
+    strcpy(stringa_without_spaces, remove_white_spaces(stringa_for_rem_space));
+    free(stringa_for_rem_space);
+    int *str_0 = (int *)malloc(number * sizeof(int));
+    memset(str_0, 0, sizeof str_0);
+    int *str_spacec = (int *)malloc(number * sizeof(int));
+    memset(str_spacec, 0, sizeof str_spacec);
     for (int i = 0; i < strlen(str); i++)
     {
+        if (str[i] == ' ')
+            str_spacec[i] += 2;
         for (int j = 0; j < strlen(word); j++)
         {
             if (word[j] == str[i])
             {
-                if(str_0[i]==0){
-                str_0[i]++;
-                // i = 0;
-                }
-            }
-            if (foll_spaces == 0)
-            {
-                if (str[i] == ' ')
+                if (str_0[i] == 0)
                 {
                     str_0[i]++;
-                    foll_spaces = 1;
+                    // i = 0;
                 }
             }
         }
-        foll_spaces = 0;
     }
-
-    int p1;
-    int fool = 0;
-    int number_of_spaces=0;
-    for (int i = 0; i < strlen(str); i += strlen(word))
-    {
-        for (int j = 0; j < strlen(word); j++)
-        {
-            if ((str_0[i + j] == 1))
-            {
-                fool = 1;
-                p1 = i + j;
-            }
-            if (fool)
-            {
-                int v2 = p1 + strlen(word);
-                int number_of_spaces = get_spaces(p1, v2, str);
-                i+=number_of_spaces;
-                int v = strlen(word) + number_of_spaces + p1;
-                if (is_included(p1, v, word, str))
-                {
-                    for (int x1 = p1; x1 < v; x1++)
-                    {
-                        printf("%c", str[x1]);
-                    }
-                    printf("~");
-                }
-            }
-
-            fool = 0;
-        }
-      int r=(strlen(word))+number_of_spaces;
-    }
+    int wl = strlen(word);
+    printanagram(str_0, str_spacec, wl, str, word);
 }
-/*****o be reviewed****/
-
-
 
 int main(void)
 {
@@ -370,7 +444,7 @@ int main(void)
     /****************** end word input ************************************************/
     while ((getchar()) != '\n')
         ;
-   
+
     char string1[1024];
     //  char string1[TXT];
     scanf("%[^~]s", string1);
