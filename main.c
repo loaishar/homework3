@@ -34,11 +34,12 @@ void print_text_from_i_to_j(char print_text[], int i, int j)
     {
         printf("%c", print_text[from]);
     }
-    printf("~");
+    // printf("~");
 }
 
 void text_length_geo(char *str_new, int word_length)
 {
+    int first_telda = 0;
     int sum_for_word = 0;
     char ch;
     char letters[52] = {'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm', 'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z', 'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
@@ -58,6 +59,11 @@ void text_length_geo(char *str_new, int word_length)
         }
         if (sum_for_word == word_length)
         {
+            first_telda++;
+            if (first_telda != 1)
+            {
+                printf("~");
+            }
             print_text_from_i_to_j(str_new, i, j);
         }
         // i=j-1;
@@ -134,8 +140,9 @@ int check_if_char_alphapet(char c)
     return 0;
 }
 // void hatbash(char *str_new2, char *word)
-void hatbash(char str_new2[], char word[])
+int hatbash(char str_new2[], char word[])
 {
+    int first_telda = 0;
     int c = 0, p1, p2;
     for (int i = 0, j = 0; j < strlen(str_new2); i++, j++)
     {
@@ -168,6 +175,11 @@ void hatbash(char str_new2[], char word[])
                 }
                 if (c == strlen(word))
                 {
+                    first_telda++;
+                    if (first_telda != 1)
+                    {
+                        printf("~");
+                    }
                     p2 = j;
                     print_text_from_i_to_j(str_new2, p1, p2 + 1);
                     c = 0;
@@ -181,6 +193,7 @@ void hatbash(char str_new2[], char word[])
         else
             break;
     }
+    return first_telda;
 }
 char *word_for_atbash_generate(char *token_convert)
 {
@@ -326,6 +339,7 @@ int IsFroBeToEn_included_in_word(int begin, int end, char *str, char *word)
 }
 void printanagram(int *str1_0, int *str2_spaces, int length, char *str, char *word)
 {
+    int first_telda = 0;
     int spaces = 0;
     int c = 0, begin, end;
     int strLength = strlen(str);
@@ -363,6 +377,11 @@ void printanagram(int *str1_0, int *str2_spaces, int length, char *str, char *wo
                     {
                         if (IsFroBeToEn_included_in_word(begin, end, str, word))
                         {
+                            first_telda++;
+                            if (first_telda != 1)
+                            {
+                                printf("~");
+                            }
                             // printf("%d\n",begin);
                             while (begin < (end) + 1)
                             {
@@ -370,7 +389,7 @@ void printanagram(int *str1_0, int *str2_spaces, int length, char *str, char *wo
                                 printf("%c", str[begin]);
                                 begin++;
                             }
-                            printf("~");
+                            //  printf("~");
                         }
                         else
                         {
@@ -495,10 +514,15 @@ int main(void)
     // printf("%s",word2);
     // word_for_atbash_generate(rev);
     printf("Atbash Sequences: ");
-    hatbash(string1, word1);
-    free(word1);
-    hatbash(string1, word2);
+    int y = hatbash(string1, word2);
     free(word2);
+    if (y == 1)
+    {
+        printf("~");
+    }
+    hatbash(string1, word1);
+
+    free(word1);
     int xen = strlen(token);
 
     // int *ptr =
